@@ -10,7 +10,7 @@ public class Defuzzifier {
     // Mamdani: center of gravity
     public static <T extends Number> T mamdani(List<FuzzyNumber<T>> activeOutputs, T min, T max,
             double step, Class<T> numericTypeClass) {
-        Objects.requireNonNull(numericTypeClass, "activeOutputs list can't be null");
+        Objects.requireNonNull(activeOutputs, "activeOutputs list can't be null");
         Objects.requireNonNull(numericTypeClass, "numericTypeClass class can't be null");
 
         double numerator = 0.0;
