@@ -17,6 +17,9 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
         this.b = Objects.requireNonNull(b, "b value can't be null").doubleValue();
         this.c = Objects.requireNonNull(c, "c value can't be null").doubleValue();
         this.d = Objects.requireNonNull(d, "d value can't be null").doubleValue();
+
+        if (!(this.a <= this.b && this.b <= this.c && this.c <= this.d))
+            throw new IllegalArgumentException("The values ​​must be: a <= b <= c <= d");
     }
 
     public TrapezoidalFuzzyNumber(String name, T a, T b, T c, T d, Class<T> numericTypeClass) {
@@ -25,6 +28,9 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
         this.b = Objects.requireNonNull(b, "b value can't be null").doubleValue();
         this.c = Objects.requireNonNull(c, "c value can't be null").doubleValue();
         this.d = Objects.requireNonNull(d, "d value can't be null").doubleValue();
+
+        if (!(this.a <= this.b && this.b <= this.c && this.c <= this.d))
+            throw new IllegalArgumentException("The values ​​must be: a <= b <= c <= d");
     }
 
     @Override
