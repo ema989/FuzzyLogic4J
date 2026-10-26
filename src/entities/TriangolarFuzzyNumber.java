@@ -41,8 +41,11 @@ public class TriangolarFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     @Override
     public double evaluate(T value) {
-        double x = value.doubleValue();
+        return evaluate(value.doubleValue());
+    }
 
+    @Override
+    public double evaluate(double x) {
         if (x < a || x > c)
             return 0d;
         if (x >= a && x <= b)

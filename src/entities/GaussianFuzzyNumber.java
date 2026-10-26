@@ -36,17 +36,6 @@ public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
         return CastUtilities.convertToType(Double.POSITIVE_INFINITY, getNumericTypeClass());
     }
 
-    @Override
-    public double evaluate(T value) {
-        double x = value.doubleValue();
-
-        if (sigma == 0) {
-            return (x == c) ? 1.0 : 0.0;
-        }
-
-        return Math.exp(-(Math.pow((x - c), 2) / (2 * Math.pow(sigma, 2))));
-    }
-
     public T getLowerBound(double alphaValue) {
         if (alphaValue <= 0 || alphaValue >= 1)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
@@ -61,6 +50,20 @@ public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
         double result = c + sigma * Math.sqrt(2 * Math.log(1 / alphaValue));
         return CastUtilities.convertToType(result, getNumericTypeClass());
+    }
+
+    @Override
+    public double evaluate(T value) {
+        return evaluate(value.doubleValue());
+    }
+
+    @Override
+    public double evaluate(double x) {
+        if (sigma == 0) {
+            return (x == c) ? 1.0 : 0.0;
+        }
+
+        return Math.exp(-(Math.pow((x - c), 2) / (2 * Math.pow(sigma, 2))));
     }
 
 }

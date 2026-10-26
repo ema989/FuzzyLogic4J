@@ -45,6 +45,12 @@ public class GenericFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     @Override
     public double evaluate(T value) {
-        return function.calculate(value.doubleValue());
+        return evaluate(value.doubleValue());
     }
+
+    @Override
+    public double evaluate(double x) {
+        return function.calculate(x);
+    }
+
 }

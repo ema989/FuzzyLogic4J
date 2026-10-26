@@ -36,4 +36,6 @@ public abstract class FuzzyNumber<T extends Number> {
 
     public abstract double evaluate(T value);
 
+    public abstract double evaluate(double x);
+
 }
