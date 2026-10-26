@@ -4,24 +4,30 @@ import java.util.Objects;
 
 import utilities.CastUtilities;
 
-public class TriangolarFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
+public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     private double a;
     private double b;
     private double c;
 
-    public TriangolarFuzzyNumber(T a, T b, T c, Class<T> numericTypeClass) {
+    public TriangularFuzzyNumber(T a, T b, T c, Class<T> numericTypeClass) {
         super(numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();
         this.b = Objects.requireNonNull(b, "b value can't be null").doubleValue();
         this.c = Objects.requireNonNull(c, "c value can't be null").doubleValue();
+
+        if (!(this.a <= this.b && this.b <= this.c))
+            throw new IllegalArgumentException("The values ​​must be: a <= b <= c");
     }
 
-    public TriangolarFuzzyNumber(String name, T a, T b, T c, Class<T> numericTypeClass) {
+    public TriangularFuzzyNumber(String name, T a, T b, T c, Class<T> numericTypeClass) {
         super(name, numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();
         this.b = Objects.requireNonNull(b, "b value can't be null").doubleValue();
         this.c = Objects.requireNonNull(c, "c value can't be null").doubleValue();
+
+        if (!(this.a <= this.b && this.b <= this.c))
+            throw new IllegalArgumentException("The values ​​must be: a <= b <= c");
     }
 
     @Override
