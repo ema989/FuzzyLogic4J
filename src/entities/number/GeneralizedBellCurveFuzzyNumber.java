@@ -40,7 +40,7 @@ public class GeneralizedBellCurveFuzzyNumber<T extends Number> extends FuzzyNumb
     }
 
     public T getLowerBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue >= 1)
+        if (alphaValue <= 0 || alphaValue > 1)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
         double result = c - a * Math.pow((1 - alphaValue) / alphaValue, 1 / (2 * b));
@@ -48,7 +48,7 @@ public class GeneralizedBellCurveFuzzyNumber<T extends Number> extends FuzzyNumb
     }
 
     public T getUpperBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue >= 1)
+        if (alphaValue <= 0 || alphaValue > 1)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
         double result = c + a * Math.pow((1 - alphaValue) / alphaValue, 1 / (2 * b));

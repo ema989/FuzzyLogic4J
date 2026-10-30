@@ -39,6 +39,40 @@ public class GenericFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     }
 
     @Override
+    public T getLowerBound(double alphaValue) {
+        if (alphaValue <= 0 || alphaValue > 1)
+            throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
+
+        double step = (peak - minX) / 1000.0;
+        if (step <= 0)
+            step = 1e-5;
+
+        for (double x = minX; x <= peak; x += step) {
+            if (evaluate(x) >= alphaValue) {
+                return CastUtilities.convertToType(x, getNumericTypeClass());
+            }
+        }
+        return CastUtilities.convertToType(peak, getNumericTypeClass());
+    }
+
+    @Override
+    public T getUpperBound(double alphaValue) {
+        if (alphaValue <= 0 || alphaValue > 1)
+            throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
+
+        double step = (maxX - peak) / 1000.0;
+        if (step <= 0)
+            step = 1e-5;
+
+        for (double x = maxX; x >= peak; x -= step) {
+            if (evaluate(x) >= alphaValue) {
+                return CastUtilities.convertToType(x, getNumericTypeClass());
+            }
+        }
+        return CastUtilities.convertToType(peak, getNumericTypeClass());
+    }
+
+    @Override
     public T getUpperBound() {
         return CastUtilities.convertToType(maxX, getNumericTypeClass());
     }

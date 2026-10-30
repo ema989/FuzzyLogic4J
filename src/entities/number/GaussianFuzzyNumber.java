@@ -37,7 +37,7 @@ public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     }
 
     public T getLowerBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue >= 1)
+        if (alphaValue <= 0 || alphaValue > 1)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
         double result = c - sigma * Math.sqrt(2 * Math.log(1 / alphaValue));
@@ -45,7 +45,7 @@ public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     }
 
     public T getUpperBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue >= 1)
+        if (alphaValue <= 0 || alphaValue > 1)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
         double result = c + sigma * Math.sqrt(2 * Math.log(1 / alphaValue));
