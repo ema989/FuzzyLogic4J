@@ -66,4 +66,53 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
             return (d - x) / (d - c);
     }
 
+    public TrapezoidalFuzzyNumber<T> add(String newName, TrapezoidalFuzzyNumber<T> other) {
+        double newA = this.a + other.a;
+        double newB = this.b + other.b;
+        double newC = this.c + other.c;
+        double newD = this.d + other.d;
+        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
+        T convNewD = CastUtilities.convertToType(newD, getNumericTypeClass());
+
+        return newName == null
+                ? new TrapezoidalFuzzyNumber<T>(convNewA, convNewB, convNewC, convNewD, getNumericTypeClass())
+                : new TrapezoidalFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, convNewD, getNumericTypeClass());
+    }
+
+    public TrapezoidalFuzzyNumber<T> subtract(String newName, TrapezoidalFuzzyNumber<T> other) {
+        double newA = this.a - other.d;
+        double newB = this.b - other.c;
+        double newC = this.c - other.b;
+        double newD = this.d - other.a;
+        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
+        T convNewD = CastUtilities.convertToType(newD, getNumericTypeClass());
+
+        return newName == null
+                ? new TrapezoidalFuzzyNumber<T>(convNewA, convNewB, convNewC, convNewD, getNumericTypeClass())
+                : new TrapezoidalFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, convNewD, getNumericTypeClass());
+    }
+
+    public TrapezoidalFuzzyNumber<T> multiply(String newName, double scalar) {
+        if (scalar <= 0d)
+            throw new IllegalArgumentException("scalar value can't be negative");
+
+        double newA = this.a * scalar;
+        double newB = this.b * scalar;
+        double newC = this.c * scalar;
+        double newD = this.d * scalar;
+        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
+        T convNewD = CastUtilities.convertToType(newD, getNumericTypeClass());
+
+        return newName == null
+                ? new TrapezoidalFuzzyNumber<T>(this.getName(), convNewA, convNewB, convNewC, convNewD,
+                        getNumericTypeClass())
+                : new TrapezoidalFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, convNewD, getNumericTypeClass());
+    }
+
 }
