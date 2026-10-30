@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import entities.Defuzzifier;
+import utilities.Defuzzifier;
+import utilities.Defuzzifier.MamdaniDefuzzificationMethod;
 
 public class FuzzyRuleSystem<T extends Number, U extends Number, R extends FuzzyRule<T, U>> {
 
@@ -65,7 +66,7 @@ public class FuzzyRuleSystem<T extends Number, U extends Number, R extends Fuzzy
     }
 
     @SuppressWarnings("unchecked")
-    public U defuzzy(T crisp, U min, U max, double step, DefuzzificationMethod mamdaniMethod) {
+    public U defuzzy(T crisp, U min, U max, double step, MamdaniDefuzzificationMethod mamdaniMethod) {
         Class<U> outputClass = (Class<U>) min.getClass();
 
         return switch (ruleType) {

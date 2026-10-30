@@ -1,12 +1,12 @@
-package entities;
+package utilities;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import utilities.CastUtilities;
+import entities.FuzzyNumber;
 
-public class Defuzzifier {
+public final class Defuzzifier {
 
     // --- MAMDANI: CENTER OF GRAVITY (CoG) ---
     public static <T extends Number> T centerOfGravity(List<FuzzyNumber<T>> activeOutputs, T min, T max,
@@ -183,6 +183,14 @@ public class Defuzzifier {
         }
 
         return CastUtilities.convertToType(numerator / denominator, numericTypeClass);
+    }
+
+    public enum MamdaniDefuzzificationMethod {
+        CENTER_OF_GRAVITY,
+        MEAN_OF_MAXIMA,
+        FIRST_OF_MAXIMA,
+        LAST_OF_MAXIMA,
+        BISECTOR_OF_AREA
     }
 
 }
