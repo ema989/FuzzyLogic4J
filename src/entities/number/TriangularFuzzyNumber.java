@@ -60,4 +60,44 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
             return (c - x) / (c - b);
     }
 
+    public TriangularFuzzyNumber<T> add(String newName, TriangularFuzzyNumber<T> other) {
+        double newA = this.a + other.a;
+        double newB = this.b + other.b;
+        double newC = this.c + other.c;
+        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
+
+        return newName == null ? new TriangularFuzzyNumber<T>(convNewA, convNewB, convNewC, getNumericTypeClass())
+                : new TriangularFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, getNumericTypeClass());
+    }
+
+    public TriangularFuzzyNumber<T> subtract(String newName, TriangularFuzzyNumber<T> other) {
+        double newA = this.a - other.c;
+        double newB = this.b - other.b;
+        double newC = this.c - other.a;
+        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
+
+        return newName == null ? new TriangularFuzzyNumber<T>(convNewA, convNewB, convNewC, getNumericTypeClass())
+                : new TriangularFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, getNumericTypeClass());
+    }
+
+    public TriangularFuzzyNumber<T> multiply(String newName, double scalar) {
+        if (scalar <= 0d)
+            throw new IllegalArgumentException("scalar value can't be negative");
+
+        double newA = this.a * scalar;
+        double newB = this.b * scalar;
+        double newC = this.c * scalar;
+        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
+
+        return newName == null
+                ? new TriangularFuzzyNumber<T>(this.getName(), convNewA, convNewB, convNewC, getNumericTypeClass())
+                : new TriangularFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, getNumericTypeClass());
+    }
+
 }
