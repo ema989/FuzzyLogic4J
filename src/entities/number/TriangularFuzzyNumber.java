@@ -1,4 +1,4 @@
-package entities;
+package entities.number;
 
 import java.util.Objects;
 

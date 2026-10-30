@@ -2,7 +2,7 @@ package entities.rule;
 
 import java.util.Objects;
 
-import entities.FuzzyNumber;
+import entities.number.FuzzyNumber;
 
 public class SugenoFuzzyRule<T extends Number, U extends Number> extends FuzzyRule<T, U> {
 

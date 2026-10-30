@@ -71,7 +71,7 @@ public class FuzzyRuleSystem<T extends Number, U extends Number, R extends Fuzzy
 
         return switch (ruleType) {
             case MAMDANI -> {
-                List<entities.FuzzyNumber<U>> activeOutputs = ruleList.stream()
+                List<entities.number.FuzzyNumber<U>> activeOutputs = ruleList.stream()
                         .filter(rule -> rule.evaluateAlpha(crisp) > 0d)
                         .map(rule -> ((MamdaniFuzzyRule<T, U>) rule).getConsequent())
                         .toList();

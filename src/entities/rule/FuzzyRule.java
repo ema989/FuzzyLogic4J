@@ -3,7 +3,7 @@ package entities.rule;
 import java.util.Objects;
 import java.util.Optional;
 
-import entities.FuzzyNumber;
+import entities.number.FuzzyNumber;
 
 public abstract class FuzzyRule<T extends Number, U extends Number> {
 
