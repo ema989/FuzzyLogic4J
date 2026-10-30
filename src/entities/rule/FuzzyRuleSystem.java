@@ -65,7 +65,7 @@ public class FuzzyRuleSystem<T extends Number, U extends Number, R extends Fuzzy
     }
 
     @SuppressWarnings("unchecked")
-    public U defuzzy(T crisp, U min, U max, double step) {
+    public U defuzzy(T crisp, U min, U max, double step, DefuzzificationMethod mamdaniMethod) {
         Class<U> outputClass = (Class<U>) min.getClass();
 
         return switch (ruleType) {
@@ -75,7 +75,13 @@ public class FuzzyRuleSystem<T extends Number, U extends Number, R extends Fuzzy
                         .map(rule -> ((MamdaniFuzzyRule<T, U>) rule).getConsequent())
                         .toList();
 
-                yield Defuzzifier.mamdani(activeOutputs, min, max, step, outputClass);
+                yield switch (mamdaniMethod) {
+                    case CENTER_OF_GRAVITY -> Defuzzifier.centerOfGravity(activeOutputs, min, max, step, outputClass);
+                    case MEAN_OF_MAXIMA -> Defuzzifier.meanOfMaxima(activeOutputs, min, max, step, outputClass);
+                    case FIRST_OF_MAXIMA -> Defuzzifier.firstOfMaxima(activeOutputs, min, max, step, outputClass);
+                    case LAST_OF_MAXIMA -> Defuzzifier.lastOfMaxima(activeOutputs, min, max, step, outputClass);
+                    case BISECTOR_OF_AREA -> Defuzzifier.bisectorOfArea(activeOutputs, min, max, step, outputClass);
+                };
             }
             case SUGENO -> {
                 List<Double> alphas = new ArrayList<>();
