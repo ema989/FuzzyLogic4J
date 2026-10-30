@@ -2,7 +2,9 @@ package entities;
 
 import java.util.Objects;
 
-public abstract class FuzzyNumber<T extends Number> {
+import entities.rule.FuzzyExpression;
+
+public abstract class FuzzyNumber<T extends Number> implements FuzzyExpression<T> {
 
     private String name;
     private Class<T> numericTypeClass;
@@ -34,6 +36,7 @@ public abstract class FuzzyNumber<T extends Number> {
 
     public abstract T getUpperBound();
 
+    @Override
     public abstract double evaluate(T value);
 
     public abstract double evaluate(double x);
