@@ -119,4 +119,42 @@ public class GenericFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
         return function.calculate(x);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (!(obj instanceof GenericFuzzyNumber<?> that))
+            return false;
+
+        return Double.compare(that.minX, minX) == 0 &&
+                Double.compare(that.peak, peak) == 0 &&
+                Double.compare(that.maxX, maxX) == 0 &&
+                Objects.equals(that.function, function) &&
+                Objects.equals(that.getName(), getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), minX, peak, maxX, function);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("GenericFuzzyNumber")
+                .append("[")
+                .append(getName() != null ? getName() + ", " : "")
+                .append("minX=")
+                .append(minX)
+                .append(", peak=")
+                .append(peak)
+                .append(", maxX=")
+                .append(maxX)
+                .append("]");
+
+        return builder.toString();
+    }
+
 }

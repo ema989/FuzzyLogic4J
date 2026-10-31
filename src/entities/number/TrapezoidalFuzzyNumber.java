@@ -144,4 +144,44 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
                 : new TrapezoidalFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, convNewD, getNumericTypeClass());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (!(obj instanceof TrapezoidalFuzzyNumber<?> that))
+            return false;
+
+        return Double.compare(that.a, a) == 0 &&
+                Double.compare(that.b, b) == 0 &&
+                Double.compare(that.c, c) == 0 &&
+                Double.compare(that.d, d) == 0 &&
+                Objects.equals(that.getName(), getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), a, b, c, d);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("TrapezoidalFuzzyNumber")
+                .append("[")
+                .append(getName() != null ? getName() + ", " : "")
+                .append("a=")
+                .append(a)
+                .append(", b=")
+                .append(b)
+                .append(", c=")
+                .append(c)
+                .append(", d=")
+                .append(d)
+                .append("]");
+
+        return builder.toString();
+    }
+
 }

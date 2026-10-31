@@ -129,4 +129,41 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
                 : new TriangularFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, getNumericTypeClass());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (!(obj instanceof TriangularFuzzyNumber<?> that))
+            return false;
+
+        return Double.compare(that.a, a) == 0 &&
+                Double.compare(that.b, b) == 0 &&
+                Double.compare(that.c, c) == 0 &&
+                Objects.equals(that.getName(), getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), a, b, c);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("TriangularFuzzyNumber")
+                .append("[")
+                .append(getName() != null ? getName() + ", " : "")
+                .append("a=")
+                .append(a)
+                .append(", b=")
+                .append(b)
+                .append(", c=")
+                .append(c)
+                .append("]");
+
+        return builder.toString();
+    }
+
 }

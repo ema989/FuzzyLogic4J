@@ -72,6 +72,39 @@ public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
         return Math.exp(-(Math.pow((x - c), 2d) / (2d * Math.pow(sigma, 2d))));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (!(obj instanceof GaussianFuzzyNumber<?> that))
+            return false;
+
+        return Double.compare(that.sigma, sigma) == 0 &&
+                Double.compare(that.c, c) == 0 &&
+                Objects.equals(that.getName(), getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), sigma, c);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("GaussianFuzzyNumber")
+                .append("[")
+                .append(getName() != null ? getName() + ", " : "")
+                .append("sigma=")
+                .append(sigma)
+                .append(", c=")
+                .append(c)
+                .append("]");
+
+        return builder.toString();
     }
 
 }

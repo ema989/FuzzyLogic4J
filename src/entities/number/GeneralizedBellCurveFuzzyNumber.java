@@ -73,4 +73,41 @@ public class GeneralizedBellCurveFuzzyNumber<T extends Number> extends FuzzyNumb
         return 1d / (1d + Math.pow(Math.abs((x - c) / a), (2d * b)));
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (!(obj instanceof GeneralizedBellCurveFuzzyNumber<?> that))
+            return false;
+
+        return Double.compare(that.a, a) == 0 &&
+                Double.compare(that.b, b) == 0 &&
+                Double.compare(that.c, c) == 0 &&
+                Objects.equals(that.getName(), getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), a, b, c);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("GeneralizedBellCurveFuzzyNumber")
+                .append("[")
+                .append(getName() != null ? getName() + ", " : "")
+                .append("a=")
+                .append(a)
+                .append(", b=")
+                .append(b)
+                .append(", c=")
+                .append(c)
+                .append("]");
+
+        return builder.toString();
+    }
+
 }
