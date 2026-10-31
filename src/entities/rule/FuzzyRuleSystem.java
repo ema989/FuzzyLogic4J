@@ -21,7 +21,7 @@ public class FuzzyRuleSystem<T extends Number, U extends Number, R extends Fuzzy
     public FuzzyRuleSystem(List<R> rules, RuleType ruleType) {
         this(ruleType);
         if (rules != null)
-            ruleList.addAll(rules);
+            rules.forEach(this::add);
     }
 
     public List<FuzzyRule<T, U>> getRuleList() {
@@ -30,6 +30,12 @@ public class FuzzyRuleSystem<T extends Number, U extends Number, R extends Fuzzy
 
     public boolean add(R rule) {
         Objects.requireNonNull(rule, "rule can't be null");
+
+        if (ruleType == RuleType.MAMDANI && !(rule instanceof MamdaniFuzzyRule))
+            throw new IllegalArgumentException("Cannot add a non-Mamdani rule to a MAMDANI FuzzyRuleSystem.");
+        if (ruleType == RuleType.SUGENO && !(rule instanceof SugenoFuzzyRule))
+            throw new IllegalArgumentException("Cannot add a non-Sugeno rule to a SUGENO FuzzyRuleSystem.");
+
         return ruleList.add(rule);
     }
 
