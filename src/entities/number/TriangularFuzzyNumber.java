@@ -112,15 +112,17 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     }
 
     public TriangularFuzzyNumber<T> multiply(String newName, double scalar) {
-        if (scalar <= 0d)
-            throw new IllegalArgumentException("scalar value can't be negative");
+        double[] values = new double[3];
 
-        double newA = this.a * scalar;
-        double newB = this.b * scalar;
-        double newC = this.c * scalar;
-        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
-        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
-        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
+        values[0] = this.a * scalar;
+        values[1] = this.b * scalar;
+        values[2] = this.c * scalar;
+
+        Arrays.sort(values);
+
+        T convNewA = CastUtilities.convertToType(values[0], getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(values[1], getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(values[2], getNumericTypeClass());
 
         return newName == null
                 ? new TriangularFuzzyNumber<T>(this.getName(), convNewA, convNewB, convNewC, getNumericTypeClass())

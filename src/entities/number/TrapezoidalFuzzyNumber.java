@@ -124,17 +124,19 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     }
 
     public TrapezoidalFuzzyNumber<T> multiply(String newName, double scalar) {
-        if (scalar <= 0d)
-            throw new IllegalArgumentException("scalar value can't be negative");
+        double[] values = new double[4];
 
-        double newA = this.a * scalar;
-        double newB = this.b * scalar;
-        double newC = this.c * scalar;
-        double newD = this.d * scalar;
-        T convNewA = CastUtilities.convertToType(newA, getNumericTypeClass());
-        T convNewB = CastUtilities.convertToType(newB, getNumericTypeClass());
-        T convNewC = CastUtilities.convertToType(newC, getNumericTypeClass());
-        T convNewD = CastUtilities.convertToType(newD, getNumericTypeClass());
+        values[0] = this.a * scalar;
+        values[1] = this.b * scalar;
+        values[2] = this.c * scalar;
+        values[3] = this.d * scalar;
+
+        Arrays.sort(values);
+
+        T convNewA = CastUtilities.convertToType(values[0], getNumericTypeClass());
+        T convNewB = CastUtilities.convertToType(values[1], getNumericTypeClass());
+        T convNewC = CastUtilities.convertToType(values[2], getNumericTypeClass());
+        T convNewD = CastUtilities.convertToType(values[3], getNumericTypeClass());
 
         return newName == null
                 ? new TrapezoidalFuzzyNumber<T>(this.getName(), convNewA, convNewB, convNewC, convNewD,
