@@ -40,19 +40,27 @@ public class GeneralizedBellCurveFuzzyNumber<T extends Number> extends FuzzyNumb
     }
 
     public T getLowerBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = c - a * Math.pow((1 - alphaValue) / alphaValue, 1 / (2 * b));
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(Double.NEGATIVE_INFINITY, getNumericTypeClass());
+        else {
+            double result = c - a * Math.pow((1d - alphaValue) / alphaValue, 1d / (2d * b));
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     public T getUpperBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = c + a * Math.pow((1 - alphaValue) / alphaValue, 1 / (2 * b));
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(Double.POSITIVE_INFINITY, getNumericTypeClass());
+        else {
+            double result = c + a * Math.pow((1d - alphaValue) / alphaValue, 1d / (2d * b));
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     @Override
@@ -62,7 +70,7 @@ public class GeneralizedBellCurveFuzzyNumber<T extends Number> extends FuzzyNumb
 
     @Override
     public double evaluate(double x) {
-        return 1 / (1 + Math.pow(Math.abs((x - c) / a), (2 * b)));
+        return 1d / (1d + Math.pow(Math.abs((x - c) / a), (2d * b)));
     }
 
 }

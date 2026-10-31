@@ -1,5 +1,6 @@
 package entities.number;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import utilities.CastUtilities;
@@ -35,7 +36,7 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     @Override
     public T getPeak() {
-        double value = (b + c) / 2;
+        double value = (b + c) / 2d;
         return CastUtilities.convertToType(value, getNumericTypeClass());
     }
 
@@ -51,20 +52,28 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     @Override
     public T getLowerBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = a + alphaValue * (b - a);
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(a, getNumericTypeClass());
+        else {
+            double result = a + alphaValue * (b - a);
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     @Override
     public T getUpperBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = d - alphaValue * (d - c);
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(d, getNumericTypeClass());
+        else {
+            double result = d - alphaValue * (d - c);
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     @Override

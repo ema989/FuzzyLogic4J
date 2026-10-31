@@ -47,9 +47,8 @@ public abstract class FuzzyNumber<T extends Number> implements FuzzyExpression<T
     public abstract double evaluate(double x);
 
     public Interval getAlphaCut(double alpha) {
-        if (alpha <= 0 || alpha > 1) {
-            throw new IllegalArgumentException("Alpha must be within the range (0, 1]. Value: " + alpha);
-        }
+        if (alpha < 0d || alpha > 1d)
+            throw new IllegalArgumentException("Alpha must be within the range [0, 1]. Value: " + alpha);
         double lower = getLowerBound(alpha).doubleValue();
         double upper = getUpperBound(alpha).doubleValue();
         return new Interval(lower, upper);

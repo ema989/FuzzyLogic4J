@@ -37,19 +37,27 @@ public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     }
 
     public T getLowerBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = c - sigma * Math.sqrt(2 * Math.log(1 / alphaValue));
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(Double.NEGATIVE_INFINITY, getNumericTypeClass());
+        else {
+            double result = c - sigma * Math.sqrt(2 * Math.log(1 / alphaValue));
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     public T getUpperBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = c + sigma * Math.sqrt(2 * Math.log(1 / alphaValue));
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(Double.POSITIVE_INFINITY, getNumericTypeClass());
+        else {
+            double result = c + sigma * Math.sqrt(2 * Math.log(1 / alphaValue));
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     @Override
@@ -59,11 +67,11 @@ public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     @Override
     public double evaluate(double x) {
-        if (sigma == 0) {
-            return (x == c) ? 1.0 : 0.0;
-        }
+        if (Math.abs(sigma) < 1e-9)
+            return (Math.abs(x - c) < 1e-9) ? 1.0 : 0.0;
 
-        return Math.exp(-(Math.pow((x - c), 2) / (2 * Math.pow(sigma, 2))));
+        return Math.exp(-(Math.pow((x - c), 2d) / (2d * Math.pow(sigma, 2d))));
+    }
     }
 
 }

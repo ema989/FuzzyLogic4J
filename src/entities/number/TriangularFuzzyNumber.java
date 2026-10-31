@@ -1,5 +1,6 @@
 package entities.number;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import utilities.CastUtilities;
@@ -47,20 +48,28 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     @Override
     public T getLowerBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = a + alphaValue * (b - a);
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(a, getNumericTypeClass());
+        else {
+            double result = a + alphaValue * (b - a);
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     @Override
     public T getUpperBound(double alphaValue) {
-        if (alphaValue <= 0 || alphaValue > 1)
+        if (alphaValue < 0d || alphaValue > 1d)
             throw new IllegalArgumentException("alphaValue isn't valid: " + alphaValue);
 
-        double result = c - alphaValue * (c - b);
-        return CastUtilities.convertToType(result, getNumericTypeClass());
+        if (alphaValue == 0d)
+            return CastUtilities.convertToType(c, getNumericTypeClass());
+        else {
+            double result = c - alphaValue * (c - b);
+            return CastUtilities.convertToType(result, getNumericTypeClass());
+        }
     }
 
     @Override
