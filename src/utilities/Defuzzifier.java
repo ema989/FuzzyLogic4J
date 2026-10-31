@@ -41,7 +41,7 @@ public final class Defuzzifier {
             denominator += maxMembershipAtY;
         }
 
-        if (denominator == 0.0)
+        if (denominator == 0.0 || Double.isNaN(denominator))
             return CastUtilities.convertToType(((min.doubleValue() + max.doubleValue()) / 2.0), numericTypeClass);
 
         return CastUtilities.convertToType(numerator / denominator, numericTypeClass);
