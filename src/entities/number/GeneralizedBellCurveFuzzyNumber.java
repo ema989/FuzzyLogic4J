@@ -4,12 +4,30 @@ import java.util.Objects;
 
 import utilities.CastUtilities;
 
+/**
+ * Represents a Generalized Bell Curve fuzzy number controlled by parameters
+ * $a$, $b$, and $c$.
+ * <p>
+ * The membership function is defined as:
+ * $$\mu(x) = \frac{1}{1 + \left|\frac{x - c}{a}\right|^{2b}}$$
+ * </p>
+ *
+ * @param <T> the numeric type of the domain
+ */
 public class GeneralizedBellCurveFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     private double a;
     private double b;
     private double c;
 
+    /**
+     * Constructs an unnamed Generalized Bell Curve fuzzy number.
+     *
+     * @param a                half-width parameter
+     * @param b                shape exponent parameter
+     * @param c                center peak parameter
+     * @param numericTypeClass domain type class
+     */
     public GeneralizedBellCurveFuzzyNumber(T a, T b, T c, Class<T> numericTypeClass) {
         super(numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();
@@ -17,6 +35,15 @@ public class GeneralizedBellCurveFuzzyNumber<T extends Number> extends FuzzyNumb
         this.c = Objects.requireNonNull(c, "c value can't be null").doubleValue();
     }
 
+    /**
+     * Constructs a named Generalized Bell Curve fuzzy number.
+     *
+     * @param name             fuzzy number name
+     * @param a                half-width parameter
+     * @param b                shape exponent parameter
+     * @param c                center peak parameter
+     * @param numericTypeClass domain type class
+     */
     public GeneralizedBellCurveFuzzyNumber(String name, T a, T b, T c, Class<T> numericTypeClass) {
         super(name, numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();

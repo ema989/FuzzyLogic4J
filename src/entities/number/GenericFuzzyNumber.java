@@ -5,6 +5,12 @@ import java.util.Objects;
 import interfaces.MembershipFunction;
 import utilities.CastUtilities;
 
+/**
+ * Represents a custom fuzzy number defined by an arbitrary
+ * {@link MembershipFunction} and explicit domain bounds.
+ *
+ * @param <T> the numeric domain type
+ */
 public class GenericFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     private double minX;
@@ -12,6 +18,15 @@ public class GenericFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     private double maxX;
     private MembershipFunction function;
 
+    /**
+     * Constructs an unnamed generic fuzzy number.
+     *
+     * @param minX             the minimum x parameter
+     * @param peak             the peak position parameter
+     * @param maxX             the maximum x parameter
+     * @param fn               the custom membership function implementation
+     * @param numericTypeClass domain type class
+     */
     public GenericFuzzyNumber(T minX, T peak, T maxX, MembershipFunction fn, Class<T> numericTypeClass) {
         super(numericTypeClass);
         this.minX = Objects.requireNonNull(minX, "minX value can't be null").doubleValue();
@@ -20,6 +35,16 @@ public class GenericFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
         this.function = Objects.requireNonNull(fn, "fn value can't be null");
     }
 
+    /**
+     * Constructs a named generic fuzzy number.
+     *
+     * @param name             the fuzzy number name
+     * @param minX             the minimum x parameter
+     * @param peak             the peak position parameter
+     * @param maxX             the maximum x parameter
+     * @param fn               the custom membership function implementation
+     * @param numericTypeClass domain type class
+     */
     public GenericFuzzyNumber(String name, T minX, T peak, T maxX, MembershipFunction fn, Class<T> numericTypeClass) {
         super(name, numericTypeClass);
         this.minX = Objects.requireNonNull(minX, "minX value can't be null").doubleValue();

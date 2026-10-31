@@ -4,17 +4,42 @@ import java.util.Objects;
 
 import utilities.CastUtilities;
 
+/**
+ * Represents a Gaussian fuzzy number characterized by standard deviation
+ * $\sigma$ and center $c$.
+ * <p>
+ * The membership function is defined as:
+ * $$\mu(x) = \exp\left(-\frac{(x - c)^2}{2\sigma^2}\right)$$
+ * </p>
+ *
+ * @param <T> the numeric type of the domain
+ */
 public class GaussianFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     private double sigma;
     private double c;
 
+    /**
+     * Constructs an unnamed Gaussian fuzzy number.
+     *
+     * @param sigma            the standard deviation parameter
+     * @param c                the center parameter
+     * @param numericTypeClass the domain type class
+     */
     public GaussianFuzzyNumber(T sigma, T c, Class<T> numericTypeClass) {
         super(numericTypeClass);
         this.sigma = Objects.requireNonNull(sigma, "sigma value can't be null").doubleValue();
         this.c = Objects.requireNonNull(c, "c value can't be null").doubleValue();
     }
 
+    /**
+     * Constructs a named Gaussian fuzzy number.
+     *
+     * @param name             the name of the fuzzy number
+     * @param sigma            the standard deviation parameter
+     * @param c                the center parameter
+     * @param numericTypeClass the domain type class
+     */
     public GaussianFuzzyNumber(String name, T sigma, T c, Class<T> numericTypeClass) {
         super(name, numericTypeClass);
         this.sigma = Objects.requireNonNull(sigma, "sigma value can't be null").doubleValue();

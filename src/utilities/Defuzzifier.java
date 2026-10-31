@@ -6,9 +6,22 @@ import java.util.Objects;
 
 import entities.number.FuzzyNumber;
 
+/**
+ * Utility algorithms for defuzzifying fuzzy sets into crisp scalar values.
+ */
 public final class Defuzzifier {
 
-    // --- MAMDANI: CENTER OF GRAVITY (CoG) ---
+    /**
+     * Computes crisp value using Center of Gravity (CoG) method.
+     *
+     * @param <T>              numeric domain
+     * @param activeOutputs    active output fuzzy sets
+     * @param min              integration domain minimum
+     * @param max              integration domain maximum
+     * @param step             sampling step
+     * @param numericTypeClass return class
+     * @return crisp defuzzified value
+     */
     public static <T extends Number> T centerOfGravity(List<FuzzyNumber<T>> activeOutputs, T min, T max,
             double step, Class<T> numericTypeClass) {
         Objects.requireNonNull(activeOutputs, "activeOutputs list can't be null");
@@ -34,7 +47,17 @@ public final class Defuzzifier {
         return CastUtilities.convertToType(numerator / denominator, numericTypeClass);
     }
 
-    // --- MAMDANI: MEAN OF MAXIMA (MoM) ---
+    /**
+     * Computes crisp output using Mean of Maxima (MoM) method.
+     *
+     * @param <T>              numeric domain
+     * @param activeOutputs    active output fuzzy sets
+     * @param min              sampling domain minimum
+     * @param max              sampling domain maximum
+     * @param step             sampling step
+     * @param numericTypeClass return class
+     * @return crisp defuzzified value
+     */
     public static <T extends Number> T meanOfMaxima(List<FuzzyNumber<T>> activeOutputs, T min, T max,
             double step, Class<T> numericTypeClass) {
         Objects.requireNonNull(activeOutputs, "activeOutputs list can't be null");
@@ -69,7 +92,17 @@ public final class Defuzzifier {
         return CastUtilities.convertToType(sum / maxPoints.size(), numericTypeClass);
     }
 
-    // --- MAMDANI: FIRST OF MAXIMA (FoM) ---
+    /**
+     * Computes crisp output using First of Maxima (FoM) method.
+     *
+     * @param <T>              numeric domain
+     * @param activeOutputs    active fuzzy outputs
+     * @param min              sampling range min
+     * @param max              sampling range max
+     * @param step             sampling step
+     * @param numericTypeClass return class
+     * @return crisp value
+     */
     public static <T extends Number> T firstOfMaxima(List<FuzzyNumber<T>> activeOutputs, T min, T max,
             double step, Class<T> numericTypeClass) {
         Objects.requireNonNull(activeOutputs, "activeOutputs list can't be null");
@@ -94,7 +127,17 @@ public final class Defuzzifier {
         return CastUtilities.convertToType(firstMaxY, numericTypeClass);
     }
 
-    // --- MAMDANI: LAST OF MAXIMA (LoM) ---
+    /**
+     * Computes crisp output using Last of Maxima (LoM) method.
+     *
+     * @param <T>              numeric domain
+     * @param activeOutputs    active fuzzy outputs
+     * @param min              sampling range min
+     * @param max              sampling range max
+     * @param step             sampling step
+     * @param numericTypeClass return class
+     * @return crisp value
+     */
     public static <T extends Number> T lastOfMaxima(List<FuzzyNumber<T>> activeOutputs, T min, T max,
             double step, Class<T> numericTypeClass) {
         Objects.requireNonNull(activeOutputs, "activeOutputs list can't be null");
@@ -119,7 +162,17 @@ public final class Defuzzifier {
         return CastUtilities.convertToType(lastMaxY, numericTypeClass);
     }
 
-    // --- MAMDANI: BISECTOR OF AREA (BoA) ---
+    /**
+     * Computes crisp output using Bisector of Area (BoA) method.
+     *
+     * @param <T>              numeric domain
+     * @param activeOutputs    active fuzzy outputs
+     * @param min              sampling range min
+     * @param max              sampling range max
+     * @param step             sampling step
+     * @param numericTypeClass return class
+     * @return crisp value splitting total membership area equally
+     */
     public static <T extends Number> T bisectorOfArea(List<FuzzyNumber<T>> activeOutputs, T min, T max,
             double step, Class<T> numericTypeClass) {
         Objects.requireNonNull(activeOutputs, "activeOutputs list can't be null");
@@ -159,7 +212,15 @@ public final class Defuzzifier {
         return CastUtilities.convertToType((min.doubleValue() + max.doubleValue()) / 2.0, numericTypeClass);
     }
 
-    // --- SUGENO: WEIGHTED AVERAGE ---
+    /**
+     * Defuzzifies Takagi-Sugeno output using weighted average.
+     *
+     * @param <T>              target output type
+     * @param alphas           activation alpha levels
+     * @param zValues          crisp consequent values
+     * @param numericTypeClass output type class
+     * @return weighted average output value
+     */
     public static <T extends Number> T sugeno(List<Double> alphas, List<Double> zValues, Class<T> numericTypeClass) {
         Objects.requireNonNull(numericTypeClass, "numericTypeClass class can't be null");
 
@@ -185,6 +246,9 @@ public final class Defuzzifier {
         return CastUtilities.convertToType(numerator / denominator, numericTypeClass);
     }
 
+    /**
+     * Supported Mamdani defuzzification algorithms.
+     */
     public enum MamdaniDefuzzificationMethod {
         CENTER_OF_GRAVITY,
         MEAN_OF_MAXIMA,

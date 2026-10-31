@@ -1,7 +1,20 @@
 package utilities;
 
+/**
+ * Utility helper for converting double scalar calculations into specific target
+ * {@link Number} instances.
+ */
 public final class CastUtilities {
 
+    /**
+     * Converts double value into target numeric wrapper class type.
+     *
+     * @param <T>         target numeric type
+     * @param value       primitive double value
+     * @param targetClass target wrapper class
+     * @return instance of type {@code T}
+     * @throws IllegalArgumentException if type is unsupported
+     */
     @SuppressWarnings("unchecked")
     public static <T extends Number> T convertToType(double value, Class<?> targetClass) {
         if (value == Double.NEGATIVE_INFINITY) {

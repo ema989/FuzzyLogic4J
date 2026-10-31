@@ -5,12 +5,27 @@ import java.util.Objects;
 
 import utilities.CastUtilities;
 
+/**
+ * Represents a Triangular Fuzzy Number defined by three parameters $(a, b, c)$
+ * such that $a \le b \le c$.
+ *
+ * @param <T> the numeric type of domain
+ */
 public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     private double a;
     private double b;
     private double c;
 
+    /**
+     * Constructs an unnamed Triangular Fuzzy Number.
+     *
+     * @param a                left support bound
+     * @param b                peak/modal value
+     * @param c                right support bound
+     * @param numericTypeClass domain type class
+     * @throws IllegalArgumentException if not $a \le b \le c$
+     */
     public TriangularFuzzyNumber(T a, T b, T c, Class<T> numericTypeClass) {
         super(numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();
@@ -21,6 +36,16 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
             throw new IllegalArgumentException("The values ​​must be: a <= b <= c");
     }
 
+    /**
+     * Constructs a named Triangular Fuzzy Number.
+     *
+     * @param name             fuzzy number name
+     * @param a                left support bound
+     * @param b                peak/modal value
+     * @param c                right support bound
+     * @param numericTypeClass domain type class
+     * @throws IllegalArgumentException if not $a \le b \le c$
+     */
     public TriangularFuzzyNumber(String name, T a, T b, T c, Class<T> numericTypeClass) {
         super(name, numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();
@@ -87,6 +112,13 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
             return (c - x) / (c - b);
     }
 
+    /**
+     * Performs fuzzy addition with another triangular fuzzy number.
+     *
+     * @param newName result name
+     * @param other   operand
+     * @return new added triangular fuzzy number
+     */
     public TriangularFuzzyNumber<T> add(String newName, TriangularFuzzyNumber<T> other) {
         double newA = this.a + other.a;
         double newB = this.b + other.b;
@@ -99,6 +131,13 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
                 : new TriangularFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, getNumericTypeClass());
     }
 
+    /**
+     * Performs fuzzy subtraction with another triangular fuzzy number.
+     *
+     * @param newName result name
+     * @param other   operand
+     * @return new subtracted triangular fuzzy number
+     */
     public TriangularFuzzyNumber<T> subtract(String newName, TriangularFuzzyNumber<T> other) {
         double newA = this.a - other.c;
         double newB = this.b - other.b;
@@ -111,6 +150,13 @@ public class TriangularFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
                 : new TriangularFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, getNumericTypeClass());
     }
 
+    /**
+     * Performs scalar multiplication on this triangular fuzzy number.
+     *
+     * @param newName result name
+     * @param scalar  scalar coefficient
+     * @return scaled triangular fuzzy number
+     */
     public TriangularFuzzyNumber<T> multiply(String newName, double scalar) {
         double[] values = new double[3];
 

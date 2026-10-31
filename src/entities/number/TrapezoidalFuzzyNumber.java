@@ -5,6 +5,12 @@ import java.util.Objects;
 
 import utilities.CastUtilities;
 
+/**
+ * Represents a Trapezoidal Fuzzy Number defined by four parameters $(a, b, c,
+ * d)$ such that $a \le b \le c \le d$.
+ *
+ * @param <T> the numeric type of domain
+ */
 public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
 
     private double a;
@@ -12,6 +18,16 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     private double c;
     private double d;
 
+    /**
+     * Constructs an unnamed Trapezoidal Fuzzy Number.
+     *
+     * @param a                left support bound
+     * @param b                left core bound
+     * @param c                right core bound
+     * @param d                right support bound
+     * @param numericTypeClass domain type class
+     * @throws IllegalArgumentException if not $a \le b \le c \le d$
+     */
     public TrapezoidalFuzzyNumber(T a, T b, T c, T d, Class<T> numericTypeClass) {
         super(numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();
@@ -23,6 +39,17 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
             throw new IllegalArgumentException("The values ​​must be: a <= b <= c <= d");
     }
 
+    /**
+     * Constructs a named Trapezoidal Fuzzy Number.
+     *
+     * @param name             name of the fuzzy number
+     * @param a                left support bound
+     * @param b                left core bound
+     * @param c                right core bound
+     * @param d                right support bound
+     * @param numericTypeClass domain type class
+     * @throws IllegalArgumentException if not $a \le b \le c \le d$
+     */
     public TrapezoidalFuzzyNumber(String name, T a, T b, T c, T d, Class<T> numericTypeClass) {
         super(name, numericTypeClass);
         this.a = Objects.requireNonNull(a, "a value can't be null").doubleValue();
@@ -93,6 +120,13 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
             return (d - x) / (d - c);
     }
 
+    /**
+     * Performs fuzzy addition between this trapezoidal number and another.
+     *
+     * @param newName name for the resulting number
+     * @param other   the operand
+     * @return a new {@code TrapezoidalFuzzyNumber} resulting from addition
+     */
     public TrapezoidalFuzzyNumber<T> add(String newName, TrapezoidalFuzzyNumber<T> other) {
         double newA = this.a + other.a;
         double newB = this.b + other.b;
@@ -108,6 +142,13 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
                 : new TrapezoidalFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, convNewD, getNumericTypeClass());
     }
 
+    /**
+     * Performs fuzzy subtraction between this trapezoidal number and another.
+     *
+     * @param newName name for the resulting number
+     * @param other   the operand
+     * @return a new {@code TrapezoidalFuzzyNumber} resulting from subtraction
+     */
     public TrapezoidalFuzzyNumber<T> subtract(String newName, TrapezoidalFuzzyNumber<T> other) {
         double newA = this.a - other.d;
         double newB = this.b - other.c;
@@ -123,6 +164,13 @@ public class TrapezoidalFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
                 : new TrapezoidalFuzzyNumber<T>(newName, convNewA, convNewB, convNewC, convNewD, getNumericTypeClass());
     }
 
+    /**
+     * Performs scalar multiplication on this trapezoidal fuzzy number.
+     *
+     * @param newName name for the resulting fuzzy number
+     * @param scalar  scalar factor
+     * @return a new scalar-multiplied {@code TrapezoidalFuzzyNumber}
+     */
     public TrapezoidalFuzzyNumber<T> multiply(String newName, double scalar) {
         double[] values = new double[4];
 

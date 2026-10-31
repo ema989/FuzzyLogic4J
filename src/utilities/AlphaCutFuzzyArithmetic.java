@@ -7,8 +7,23 @@ import entities.arithmetic.Interval;
 import entities.number.FuzzyNumber;
 import entities.number.GenericFuzzyNumber;
 
+/**
+ * Utility performing arbitrary fuzzy arithmetic operations using resolution
+ * principle over discrete alpha-cuts.
+ */
 public class AlphaCutFuzzyArithmetic {
 
+    /**
+     * Executes alpha-cut interval arithmetic operation between two fuzzy numbers.
+     *
+     * @param <T>              numeric domain type
+     * @param a                first operand
+     * @param b                second operand
+     * @param op               arithmetic operation type
+     * @param steps            number of discrete sampling steps for alpha levels
+     * @param numericTypeClass return domain type class
+     * @return resulting synthesized {@link GenericFuzzyNumber}
+     */
     public static <T extends Number> GenericFuzzyNumber<T> execute(FuzzyNumber<T> a, FuzzyNumber<T> b, Operation op,
             int steps, Class<T> numericTypeClass) {
         List<Double> alphaLevels = new ArrayList<>();
@@ -51,8 +66,9 @@ public class AlphaCutFuzzyArithmetic {
                 numericTypeClass);
     }
 
-    // It reconstructs the membership degree μ(x) for a given x by interpolating
-    // between alpha-cuts.
+    /**
+     * Reconstructs membership degree by interpolating across computed alpha cuts.
+     */
     private static double evaluateMembershipFromCuts(double x, List<Double> alphaLevels, List<Interval> intervals) {
         double maxAlpha = 0.0;
 
@@ -65,6 +81,9 @@ public class AlphaCutFuzzyArithmetic {
         return maxAlpha;
     }
 
+    /**
+     * Supported fuzzy interval operations.
+     */
     public enum Operation {
         ADD, SUBTRACT, MULTIPLY, DIVIDE
     }
