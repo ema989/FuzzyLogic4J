@@ -8,8 +8,8 @@ import entities.number.FuzzyNumber;
 public abstract class FuzzyRule<T extends Number, U extends Number> {
 
     private String ruleName;
-    private FuzzyNumber<T> antecedent = null;
-    private FuzzyExpression<T> antecedentExpr = null;
+    protected FuzzyNumber<T> antecedent = null;
+    protected FuzzyExpression<T> antecedentExpr = null;
 
     public FuzzyRule(String ruleName) {
         this.ruleName = Objects.requireNonNull(ruleName, "ruleName can't be null");

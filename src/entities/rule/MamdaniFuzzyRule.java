@@ -24,8 +24,12 @@ public class MamdaniFuzzyRule<T extends Number, U extends Number> extends FuzzyR
 
     @Override
     public double evaluateAlpha(T crisp) {
-        return super.getAntecedent().isPresent() ? super.getAntecedent().get().evaluate(crisp)
-                : super.getAntecedentExpr().get().evaluate(crisp);
+        if (antecedent != null) {
+            return antecedent.evaluate(crisp);
+        } else if (antecedentExpr != null) {
+            return antecedentExpr.evaluate(crisp);
+        }
+        throw new IllegalStateException("Both antecedent and antecedentExpr are null.");
     }
 
     @Override
