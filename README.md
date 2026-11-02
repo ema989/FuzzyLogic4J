@@ -9,6 +9,10 @@ A lightweight, robust, and extensible Java library for continuous and discrete *
   * Trapezoidal (`TrapezoidalFuzzyNumber`)
   * Gaussian (`GaussianFuzzyNumber`)
   * Generalized Bell Curve (`GeneralizedBellCurveFuzzyNumber`)
+  * PiShaped (`PiShapedFuzzyNumber`)
+  * Sigmoidal (`SigmoidalFuzzyNumber`)
+  * S-shape (`SShapeFuzzyNumber`)
+  * Z-shape (`ZShapeFuzzyNumber`)
   * Generic / Custom Membership Functions (`GenericFuzzyNumber`)
 * **Interval Arithmetic via Alpha-Cuts:** Compute fuzzy addition, subtraction, multiplication, and division using resolution principle alpha-cut decomposition (`AlphaCutFuzzyArithmetic`).
 * **Composable Logical Expressions:** Chain fuzzy membership expressions fluently using `and`, `or`, and `not` operators.
@@ -174,6 +178,10 @@ src/
 │   │   ├── TrapezoidalFuzzyNumber.java
 │   │   ├── GaussianFuzzyNumber.java
 │   │   ├── GeneralizedBellCurveFuzzyNumber.java
+│   │   ├── PiShapedFuzzyNumber.java
+│   │   ├── SigmoidalFuzzyNumber.java
+│   │   ├── SShapeFuzzyNumber.java
+│   │   ├── ZShapeFuzzyNumber
 │   │   └── GenericFuzzyNumber.java
 │   └── rule/
 │       ├── FuzzyExpression.java
