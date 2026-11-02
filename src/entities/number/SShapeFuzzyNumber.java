@@ -5,7 +5,7 @@ import java.util.Objects;
 import utilities.CastUtilities;
 
 /**
- * Represents an S-shape fuzzy number used for incremental transitions.
+ * Represents a S-shape fuzzy number used for incremental transitions.
  * 
  * @param <T> the numeric type extending Number
  */
@@ -15,7 +15,7 @@ public class SShapeFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     private final double b;
 
     /**
-     * Constructs an S-shape fuzzy number.
+     * Constructs a S-shape fuzzy number.
      * 
      * @param a                lower limit parameter
      * @param b                upper limit parameter
@@ -31,7 +31,7 @@ public class SShapeFuzzyNumber<T extends Number> extends FuzzyNumber<T> {
     }
 
     /**
-     * Constructs an S-shape fuzzy number.
+     * Constructs a S-shape fuzzy number.
      * 
      * @param name             the name of the fuzzy number
      * @param a                lower limit parameter
